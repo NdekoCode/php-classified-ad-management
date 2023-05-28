@@ -1,0 +1,17 @@
+{
+  "name": "php-classified-ad-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./public/assets/css/styles.css -o ./public/assets/css/app.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2",
+    "postcss": "^8.4.23",
+    "autoprefixer": "^10.4.14"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
