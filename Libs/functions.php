@@ -1,6 +1,5 @@
 <?php
 
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . "config.php";
 /**
  * @SuppressWarnings(PHPMD)
@@ -23,7 +22,13 @@ function debugPrint(mixed ...$data): void
 /**
  * @SuppressWarnings(PHPMD)
  */
-
+function getControllerPath(string $controllerName): string
+{
+    return   "\App\Controllers\\" . ucfirst($controllerName) . "Controller";
+}
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function varDumper(mixed ...$data): void
 {
     echo "<div><pre>";
@@ -53,6 +58,13 @@ function salutation($name, $salutation = "Salut")
 function validFieldData(string $fieldValue): string
 {
     return trim(htmlentities(strip_tags($fieldValue)));
+}
+function clean(string|null $val = ""): string
+{
+    if (!empty($val)) {
+        return  preg_replace('/[^a-zA-Z0-9\-\_]/', '', ($val));
+    }
+    return "";
 }
 function hasValue($value)
 {

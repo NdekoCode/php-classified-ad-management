@@ -140,7 +140,6 @@ class Model extends Db
         $params = ['id' => $this->validator->validFieldData($id)];
         $sql = "DELETE FROM $this->table WHERE id=:id";
         $result = $this->makeQuery($sql, $params);
-        debugPrint($result->fetch());
         if (!is_bool($result)) {
             debugPrint("Données supprimer avec succés");
         }
@@ -164,7 +163,6 @@ class Model extends Db
         $searchParam = [$this->primaryKey => $id];
         $query = $this->findBy($searchParam, false, 'OR');
         $params['id'] = $id;
-        debugPrint($searchParam);
         if (!is_bool($query)) {
 
             $sql = "UPDATE $this->table SET $values WHERE id=:id";

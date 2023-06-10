@@ -1,11 +1,18 @@
 <?php
 
-use App\Autoloader;
+/**
+ * Le fichier centrale de notre projet
+ * Ce fichier est là uniquement pour lancer le routeur
+ * C'est ce fichier qui sera interroger à chaque fois que l'on va charger une page
+ */
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Libs' . DIRECTORY_SEPARATOR . 'config.php';
+use App\Autoloader;
+use App\Core\Main;
+
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Libs' . DIRECTORY_SEPARATOR . 'functions.php';
 require_once ROOT_PATH  . 'Autoloader.php';
 Autoloader::register();
-?>
-<h1 class="text-3xl font-bold text-gray-500">Hello
 
-</h1>
+// On instancie Main, Main ça sera mon routeur
+$app = new Main();
+$app->start();

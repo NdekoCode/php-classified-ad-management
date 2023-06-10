@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controllers;
 
-class Controller
+abstract class Controller
 {
 }

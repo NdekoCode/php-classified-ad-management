@@ -1,0 +1,12 @@
+# On demarre le moteur de réécriture
+RewriteEngine On
+
+# On vérifie que l'URL demandé n’est pas un fichier existant
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# On vérifie que l'URL demandé  n’est pas un dossier existant
+RewriteCond %{REQUEST_FILENAME} !-d
+# On réécrit L'URL en mettant d'abord une règle de récriture, cette regle de réécriture a le schema suivant
+## ^(Regex)$: c'est dans les parenthèses qu'on met toujours nos regles de réécriture
+RewriteRule ^(.*)$ index.php?p=$1 [L,QSA]
+# Cette ligne redirige toute requête qui ne correspond pas aux conditions précédentes vers index.php avec le paramètre p égal à la requête originale. L’option [L] indique qu’il s’agit de la dernière règle à appliquer et l’option [QSA] indique qu’il faut conserver les paramètres supplémentaires éventuels.
