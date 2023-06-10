@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controller\Controller;
+
 
 class MainController extends Controller
 {
@@ -14,5 +14,6 @@ class MainController extends Controller
     public function index()
     {
         echo "Ceci est la page d'acceuil";
+        die();
     }
 }
