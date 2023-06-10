@@ -47,7 +47,7 @@ class Model extends Db
      *
      * @var array
      */
-    protected array $verifyFields = [];
+    protected $verifyFields = [];
 
     /**
      * Validateur des donnée
@@ -186,7 +186,7 @@ class Model extends Db
      * Get Data in the database
      * @param string $all To get all data or a single data
      */
-    public function findAll($all = true): PDOStatement | array| null
+    public function findAll($all = true): array|bool
     {
         $sql =  $this->selectQuery();
         $query = $this->makeQuery($sql);
