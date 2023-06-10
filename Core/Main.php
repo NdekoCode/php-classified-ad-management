@@ -25,11 +25,13 @@ class Main
             $controller = (isset($urlOptions[0]) && !empty($urlOptions[0])) ? clean(array_shift($urlOptions)) : "main";
             $controller = getControllerPath($controller);
 
-            $method = isset($urlOptions[1]) ? clean(array_shift($urlOptions)) : "index";
+            $method = isset($urlOptions[0]) && !empty($urlOptions[0]) ? clean(array_shift($urlOptions)) : "index";
 
             if (class_exists($controller)) {
                 $controller = new $controller();
                 if (method_exists($controller, $method)) {
+                    debugPrint($urlOptions);
+                    (isset($urlOptions[0]) && !empty($urlOptions)) ? $controller->$method($urlOptions) : $controller->$method();
                     $controller->$method();
                     return;
                 }
