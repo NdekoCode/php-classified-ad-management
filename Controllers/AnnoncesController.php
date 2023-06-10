@@ -10,6 +10,6 @@ class AnnoncesController extends Controller
     {
         $model = new AnnoncesModel();
         $data =  $model->findAll();
-        debugPrint($data);
+        include_once ROOT_VIEWS . 'annonces' . DS . 'index.php';
     }
 }

@@ -30,7 +30,6 @@ class Main
             if (class_exists($controller)) {
                 $controller = new $controller();
                 if (method_exists($controller, $method)) {
-                    debugPrint($urlOptions);
                     (isset($urlOptions[0]) && !empty($urlOptions)) ? $controller->$method($urlOptions) : $controller->$method();
                     $controller->$method();
                     return;

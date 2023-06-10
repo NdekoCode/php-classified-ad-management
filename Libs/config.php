@@ -2,6 +2,7 @@
 
 define("DS", DIRECTORY_SEPARATOR);
 define('ROOT_PATH', dirname(__DIR__) . DS);
+define('ROOT_VIEWS', dirname(__DIR__) . DS . 'Views' . DS);
 
 // INFOMATION DE CONNEXION À LA BASE DE DONNÉES
 define('DB_HOST', 'localhost');
