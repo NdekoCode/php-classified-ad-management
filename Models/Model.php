@@ -65,16 +65,20 @@ class Model extends Db
      * @param array $options
      * @return string
      */
-    protected function selectQuery(array $options =
-    [
-        "order" => "",
-        "fields" => "",
-        "params" => [],
-        "separator" => "AND",
-        "limit" => 0
-    ]): string
-    {
-
+    protected function selectQuery(
+        array $options =
+        []
+    ): string {
+        $options = array_merge(
+            [
+                "order" => "",
+                "fields" => "",
+                "params" => [],
+                "separator" => "AND",
+                "limit" => 0
+            ],
+            $options
+        );
         $sql = "SELECT";
 
         if (@$this->validator->isNotEmpty($options['fields'])) {
@@ -188,12 +192,12 @@ class Model extends Db
      */
     public function findAll($all = true): array|bool
     {
-        $sql =  $this->selectQuery();
+        $sql = $this->selectQuery(['order' => "ORDER BY createdAt DESC"]);
         $query = $this->makeQuery($sql);
 
         return $this->getStatementData($query, $all);
     }
-    public function hydrateData(Model |array $data): self
+    public function hydrateData(Model|array $data): self
     {
 
         foreach ($data as $key => $v) {
@@ -223,7 +227,7 @@ class Model extends Db
      * @param boolean $all
      * @return array|bool
      */
-    public function findBy(array $params, $all = true, string $separator = 'AND'): array| bool
+    public function findBy(array $params, $all = true, string $separator = 'AND'): array|bool
     {
         $paramsData = $this->getParamsValues($params, $separator);
         $strparams = $paramsData[0];
@@ -234,7 +238,7 @@ class Model extends Db
         return $this->getStatementData($query, $all);
     }
 
-    public function find(array |int $params): array|bool
+    public function find(array|int $params): array|bool
     {
         if (!is_array($params)) {
             $params = ["$this->primaryKey" => $params];
@@ -292,7 +296,7 @@ class Model extends Db
      */
     protected function makeQuery(string $sql, array $attributes = []): PDOStatement|bool
     {
-        $this->pdo =  Db::getPDO();
+        $this->pdo = Db::getPDO();
         // On verifie si on a des attributs
         if (!empty($attributes)) {
             // Requete preparer
@@ -302,7 +306,7 @@ class Model extends Db
         }
         return $this->pdo->query($sql);
     }
-    protected function getStatementData(PDOStatement | bool $query, $all = true): array | bool
+    protected function getStatementData(PDOStatement|bool $query, $all = true): array|bool
     {
         if ($query instanceof PDOStatement) {
             $query->setFetchMode(self::FETCH_CLASS, $this->fetchClass);
