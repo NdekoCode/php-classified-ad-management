@@ -1,4 +1,4 @@
 
-<?php loadFile(ROOT_VIEWS_PARTIALS, 'header') ?>
+<?php loadFileByPath(ROOT_VIEWS_PARTIALS, 'header') ?>
 <?= $content ?>
-<?php loadFile(ROOT_VIEWS_PARTIALS, 'footer') ?>
+<?php loadFileByPath(ROOT_VIEWS_PARTIALS, 'footer') ?>

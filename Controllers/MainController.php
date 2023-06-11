@@ -11,8 +11,7 @@ class MainController extends Controller
      */
     public function index()
     {
-        echo "Ceci est la page d'acceuil";
-        die();
+        $this->render('main.index');
     }
     public function pageNotFound()
     {

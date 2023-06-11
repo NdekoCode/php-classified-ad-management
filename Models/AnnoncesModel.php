@@ -167,7 +167,7 @@ class AnnoncesModel extends Model
     }
     public function getExcerpt(): string
     {
-        return substr($this->description, 0, 100) . '...';
+        return substr($this->description, 0, 65) . '...';
     }
 
 

@@ -4,7 +4,7 @@ define("DS", DIRECTORY_SEPARATOR);
 define('ROOT_PATH', dirname(__DIR__) . DS);
 define('ROOT_VIEWS', dirname(__DIR__) . DS . 'Views' . DS);
 define('ROOT_LIBS', dirname(__DIR__) . DS . 'Libs' . DS);
-define('ROOT_ASSETS', dirname(__DIR__) . DS . 'public' . DS . 'ASSETS' . DS);
+define('ROOT_ASSETS', dirname(__DIR__) . DS . 'public' . DS . 'assets' . DS);
 define('ROOT_VIEWS_PARTIALS', dirname(__DIR__) . DS . 'Views' . DS . 'partials' . DS);
 
 

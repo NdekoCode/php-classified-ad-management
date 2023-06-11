@@ -1,5 +1,5 @@
 <!-- Header Navbar -->
-<nav class="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+<nav class="sticky top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
     <div class="container flex flex-wrap items-center justify-between max-w-6xl mx-auto">
         <a href="#" class="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 mr-3 text-blue-500 sm:h-9">
