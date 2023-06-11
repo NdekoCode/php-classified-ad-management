@@ -15,17 +15,22 @@ class AnnoncesController extends MainController
     public function index()
     {
         $annonces =  $this->model->findAll();
+        $title = "Liste des annonces";
         // compact('data') equivaut à ['annonces'=>$data]
-        $this->render('annonces.index', compact('annonces'));
+        $this->render('annonces.index', compact(['annonces', 'title']));
     }
     public function read($id)
     {
         $id = (int)$id;
+        /**
+         * @var App\Models\AnnoncesModel
+         */
         $annonce = $this->model->find($id);
         if (!$annonce) {
             $this->pageNotFound();
             return;
         }
-        $this->render('annonces.read', compact('annonce'));
+        $title =  $annonce->getTitle();
+        $this->render('annonces.read', compact(['annonce', 'title']));
     }
 }

@@ -11,10 +11,12 @@ class MainController extends Controller
      */
     public function index()
     {
-        $this->render('main.index');
+        $title = "Home page";
+        $this->render('main.index', compact('title'));
     }
     public function pageNotFound()
     {
-        $this->render('main.page-404');
+        $title = "Page not found";
+        $this->render('main.page-404', compact('title'));
     }
 }

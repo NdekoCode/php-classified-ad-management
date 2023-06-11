@@ -4,6 +4,12 @@ namespace App\Controllers;
 
 abstract class Controller
 {
+    /**
+     * Definit le template de notre site
+     *
+     * @var string
+     */
+    protected $layout = "layout";
     public function render(string $pagePath = 'main.index', array $data = [])
     {
         // Par exemple : $data = ['a'=>'Valeur de a','b'=>'Valeur de B'], alors extract($data) donnera deux variables dont $a et $b et leurs contenus sont leurs valeurs dans le tableau $data
@@ -12,7 +18,21 @@ abstract class Controller
         $pagePath = str_replace('.', DS, $pagePath);
         require_once ROOT_VIEWS . "$pagePath.php";
         $content = ob_get_clean();
-        require_once ROOT_VIEWS . 'layout.php';
+        require_once ROOT_VIEWS . "$this->layout.php";
         exit();
+    }
+
+    /**
+     * Set definit le template de notre site
+     *
+     * @param  string  $layout  Definit le template de notre site
+     *
+     * @return  self
+     */
+    public function setLayout(string $layout)
+    {
+        $this->layout = $layout;
+
+        return $this;
     }
 }
