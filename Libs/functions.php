@@ -152,3 +152,56 @@ function redirect(string $path, bool $last = true, int|null $httpCode = 0)
         die();
     }
 }
+function dateHuman(string $date): string
+{
+    // convertir la date en objet DateTime si elle est sous forme de chaîne ou de timestamp
+    if (is_string($date) || is_int($date)) {
+        $date = new DateTime("$date");
+    }
+    // obtenir l'objet DateTime actuel
+    $now = new DateTime();
+    // calculer la différence sous forme d'un objet DateInterval
+    $interval = $now->diff($date);
+    // déterminer si la date est dans le futur ou dans le passé
+    $future = $interval->invert ? "In " : "";
+    $past = $interval->invert ? " ago" : "";
+    // initialiser la variable pour stocker l'expression à retourner
+    $expression = "";
+    // choisir l'expression appropriée selon les propriétés de l'objet DateInterval
+    if ($interval->y > 0) {
+        // plus d'un an
+        $expression = formatExpression($future, $interval->y, "year", $past);
+    } elseif ($interval->m > 0) {
+        // plus d'un mois
+        $expression = formatExpression($future, $interval->m, "month", $past);
+    } elseif ($interval->d > 0) {
+        // plus d'un jour
+        $expression = formatExpression($future, $interval->d, "day", $past);
+    } elseif ($interval->h > 0) {
+        // plus d'une heure
+        $expression = formatExpression($future, $interval->h, "hour", $past);
+    } elseif ($interval->i > 0) {
+        // plus d'une minute
+        $expression = formatExpression($future, $interval->i, "minute", $past);
+    } else {
+        // moins d'une minute
+        $expression = "Just now";
+    }
+    // retourner l'expression finale
+    return $expression;
+}
+
+// extraire une fonction pour formater l'expression selon le nombre et l'unité de temps
+function formatExpression($prefix, $number, $unit, $suffix)
+{
+    return $prefix . $number . " " . $unit . ($number > 1 ? "s" : "") . $suffix;
+}
+
+
+function randomDate($start, $end): string
+{
+    $start = strtotime($start);
+    $end = strtotime($end);
+    $random = mt_rand($start, $end);
+    return date('Y-m-d H:i:s', $random);
+}

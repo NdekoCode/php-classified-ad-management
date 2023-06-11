@@ -10,5 +10,6 @@ abstract class Controller
         extract($data); // Va extraire tous ce qui se trouve dans le tableau sous forme de variable dont le nom des variable sera la clé du tableau et la valeur sera la valeur correspondante de cette clé.
         $pagePath = str_replace('.', DS, $pagePath);
         include_once ROOT_VIEWS . "$pagePath.php";
+        exit();
     }
 }

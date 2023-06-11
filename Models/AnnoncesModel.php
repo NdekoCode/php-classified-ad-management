@@ -169,4 +169,15 @@ class AnnoncesModel extends Model
     {
         return substr($this->description, 0, 100) . '...';
     }
+
+
+    /**
+     * Retourne date sous un format humaine
+     *
+     * @return string
+     */
+    public function getDiffHumainDate(): string
+    {
+        return dateHuman($this->createdAt);
+    }
 }

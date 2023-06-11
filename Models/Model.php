@@ -6,7 +6,7 @@ use App\Core\Db;
 use App\Libs\Validator;
 use PDOStatement;
 
-class Model extends Db
+abstract class Model extends Db
 {
     /**
      * Table de la base de données
@@ -27,7 +27,8 @@ class Model extends Db
      */
     protected int $limit;
     protected string $primaryKey = 'id';
-
+    protected string $createdAt;
+    protected string $updatedAt;
     /**
      * Fillable keys it means the keys to be modified
      *
@@ -197,7 +198,7 @@ class Model extends Db
 
         return $this->getStatementData($query, $all);
     }
-    public function hydrateData(Model|array $data): self
+    public function hydrateData(mixed $data): self
     {
 
         foreach ($data as $key => $v) {
@@ -227,7 +228,7 @@ class Model extends Db
      * @param boolean $all
      * @return array|bool
      */
-    public function findBy(array $params, $all = true, string $separator = 'AND'): array|bool
+    public function findBy(array $params, $all = true, string $separator = 'AND'): array|bool|self
     {
         $paramsData = $this->getParamsValues($params, $separator);
         $strparams = $paramsData[0];
@@ -238,7 +239,7 @@ class Model extends Db
         return $this->getStatementData($query, $all);
     }
 
-    public function find(array|int $params): array|bool
+    public function find(array|int $params): array|bool|self
     {
         if (!is_array($params)) {
             $params = ["$this->primaryKey" => $params];
@@ -306,7 +307,7 @@ class Model extends Db
         }
         return $this->pdo->query($sql);
     }
-    protected function getStatementData(PDOStatement|bool $query, $all = true): array|bool
+    protected function getStatementData(PDOStatement|bool $query, $all = true): array|bool|self
     {
         if ($query instanceof PDOStatement) {
             $query->setFetchMode(self::FETCH_CLASS, $this->fetchClass);
@@ -315,7 +316,6 @@ class Model extends Db
             }
             return $query->fetch();
         }
-
         return $query;
     }
 
