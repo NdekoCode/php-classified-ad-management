@@ -24,7 +24,7 @@ class Autoloader
             return;
         }
 
-        echo "<br/><pre style=\"background-color='#FF5252'\">File $file not found</pre>";
+        echo "<br/><pre style=\"background-color='#FF5252'\"><strong>ERROR:</strong> File $file not found</pre>";
         die();
     }
 }

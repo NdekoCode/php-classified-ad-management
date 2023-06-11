@@ -8,6 +8,7 @@ class Main
 {
     public function start()
     {
+
         // Routes: http://mon-domain.local/controller/method/parameter
         // TRUE URL: http://mon-domain.local/index.php?p=controller/method/parameter
         // On recupère l'url après le nom de domaine donc le "/controller/method/parameter"
@@ -19,13 +20,15 @@ class Main
             header("Location: $uri");
         }
         $urlOptions = explode("/", ($_GET['p'] ?? ""));
+
+        $main = new MainController();
         if (!empty($urlOptions)) {
             // On a au moin un paramètre
             // On recupère le nom de l'instance à recuperer
-            $controller = (isset($urlOptions[0]) && !empty($urlOptions[0])) ? clean(array_shift($urlOptions)) : "main";
+            $controller = isset($urlOptions[0]) ? clean(array_shift($urlOptions)) : "main";
             $controller = getControllerPath($controller);
 
-            $method = isset($urlOptions[0]) && !empty($urlOptions[0]) ? clean(array_shift($urlOptions)) : "index";
+            $method = isset($urlOptions[0]) ? clean(array_shift($urlOptions)) : "index";
 
             if (class_exists($controller)) {
                 $controller = new $controller();
@@ -34,11 +37,12 @@ class Main
                     $controller->$method();
                     return;
                 }
-                die("La classe n'existe pas");
+
+                $main->pageNotFound();
+                return;
             }
-            die("La methode n'existe pas");
+            die("La classe n'existe pas");
         } else {
-            $main = new MainController();
             $main->index();
         }
         // Pas de paramètre
