@@ -18,6 +18,7 @@ class AnnoncesModel extends Model
     {
         parent::__construct();
         $this->table = 'annonces';
+        $this->fetchClass = self::class;
     }
 
     /**
@@ -163,5 +164,9 @@ class AnnoncesModel extends Model
         $this->fillable = $fillable;
 
         return $this;
+    }
+    public function getExcerpt(): string
+    {
+        return substr($this->description, 0, 100) . '...';
     }
 }

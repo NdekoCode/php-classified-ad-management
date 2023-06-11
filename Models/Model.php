@@ -305,7 +305,7 @@ class Model extends Db
     protected function getStatementData(PDOStatement | bool $query, $all = true): array | bool
     {
         if ($query instanceof PDOStatement) {
-
+            $query->setFetchMode(self::FETCH_CLASS, $this->fetchClass);
             if ($all) {
                 return $query->fetchAll();
             }

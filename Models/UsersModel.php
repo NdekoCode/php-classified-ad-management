@@ -14,6 +14,7 @@ class UsersModel extends Model
     {
         parent::__construct();
         $this->table = "users";
+        $this->fetchClass = self::class;
     }
 
     /**

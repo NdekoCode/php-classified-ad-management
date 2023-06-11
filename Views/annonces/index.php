@@ -64,14 +64,14 @@
 
                     <div class="flex flex-col justify-between py-6 lg:mx-6">
                         <a href="#" class="text-xl font-semibold text-slate-700 hover:underline dark:text-white ">
-                            <?= $annonce->title ?>
+                            <?= $annonce->getTitle() ?>
                         </a>
 
-                        <p class="mt-1 text-sm text-slate-400"><?= substr($annonce->description, 0, 150) ?></p>
-                        <span class="text-sm text-gray-500 dark:text-gray-300">On: <?= $annonce->createdAt ?></span>
+                        <p class="mt-1 text-sm text-slate-400"><?= $annonce->getExcerpt() ?></p>
+                        <span class="text-sm text-gray-500 dark:text-gray-300">On: <?= $annonce->getCreatedAt() ?></span>
                         <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
 
-                            <a href="/annonces/read/<?= $annonce->id ?>" class="text-sm">Learn more</a>
+                            <a href="/annonces/read/<?= $annonce->getId() ?>" class="text-sm">Learn more</a>
                         </div>
                     </div>
                 </article>

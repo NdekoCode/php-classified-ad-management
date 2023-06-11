@@ -8,6 +8,7 @@ use PDOException;
 class Db extends PDO
 {
     private static $instance;
+    protected string $fetchClass = '';
     private function __construct()
     {
         try {

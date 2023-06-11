@@ -12,7 +12,7 @@ define('DB_NAME', 'learn-php');
 define('DNS', "mysql:host=" . DB_HOST . ';dbname=' . DB_NAME . '');
 define('DB_OPTIONS', [
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_CLASS,
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 ]);
 if (session_status() === PHP_SESSION_NONE) {
