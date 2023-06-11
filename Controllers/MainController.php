@@ -16,6 +16,7 @@ class MainController extends Controller
     }
     public function pageNotFound()
     {
+        $this->setLayout('void');
         $title = "Page not found";
         $this->render('main.page-404', compact('title'));
     }

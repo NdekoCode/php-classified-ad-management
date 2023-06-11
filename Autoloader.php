@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Controllers\MainController;
+
 class Autoloader
 {
     public static function register()
@@ -23,8 +25,11 @@ class Autoloader
             require_once $file;
             return;
         }
+        if (preg_match("/Controller/i", $class)) {
+            return (new MainController())->pageNotFound();
+        }
 
         echo "<br/><pre style=\"background-color='#FF5252'\"><strong>ERROR:</strong> File $file not found</pre>";
-        die();
+        exit();
     }
 }
