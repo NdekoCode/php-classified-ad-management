@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Controllers;
 
 use App\Models\AnnoncesModel;
@@ -10,6 +11,6 @@ class AnnoncesController extends Controller
     {
         $model = new AnnoncesModel();
         $data =  $model->findAll();
-        include_once ROOT_VIEWS . 'annonces' . DS . 'index.php';
+        $this->render('annonces.index', compact('data'));
     }
 }
