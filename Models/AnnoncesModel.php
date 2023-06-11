@@ -107,7 +107,8 @@ class AnnoncesModel extends Model
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        $time = strtotime($this->createdAt);
+        return date('M d Y', $time);
     }
 
     /**
@@ -167,6 +168,17 @@ class AnnoncesModel extends Model
     }
     public function getExcerpt(): string
     {
-        return substr($this->description, 0, 100) . '...';
+        return substr($this->description, 0, 25) . '...';
+    }
+
+
+    /**
+     * Retourne date sous un format humaine
+     *
+     * @return string
+     */
+    public function getDiffHumainDate(): string
+    {
+        return dateHuman($this->createdAt);
     }
 }

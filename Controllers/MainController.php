@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-
-
 class MainController extends Controller
 {
     /**
@@ -13,11 +11,13 @@ class MainController extends Controller
      */
     public function index()
     {
-        echo "Ceci est la page d'acceuil";
-        die();
+        $title = "Home page";
+        $this->render('main.index', compact('title'));
     }
     public function pageNotFound()
     {
-        $this->render('main.page-404');
+        $this->setLayout('void');
+        $title = "Page not found";
+        $this->render('main.page-404', compact('title'));
     }
 }

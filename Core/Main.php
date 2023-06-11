@@ -25,16 +25,15 @@ class Main
         if (!empty($urlOptions)) {
             // On a au moin un paramètre
             // On recupère le nom de l'instance à recuperer
-            $controller = isset($urlOptions[0]) ? clean(array_shift($urlOptions)) : "main";
+            $controller = (isset($urlOptions[0]) && !empty($urlOptions[0])) ? clean(array_shift($urlOptions)) : "main";
             $controller = getControllerPath($controller);
 
-            $method = isset($urlOptions[0]) ? clean(array_shift($urlOptions)) : "index";
+            $action = (isset($urlOptions[0]) && !empty($urlOptions[0]))  ? clean(array_shift($urlOptions)) : "index";
 
             if (class_exists($controller)) {
                 $controller = new $controller();
-                if (method_exists($controller, $method)) {
-                    (isset($urlOptions[0]) && !empty($urlOptions)) ? $controller->$method($urlOptions) : $controller->$method();
-                    $controller->$method();
+                if (method_exists($controller, $action)) {
+                    (isset($urlOptions[0]) && !empty($urlOptions)) ? call_user_func_array([$controller, $action], $urlOptions) : $controller->$action();
                     return;
                 }
 
