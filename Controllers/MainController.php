@@ -16,4 +16,8 @@ class MainController extends Controller
         echo "Ceci est la page d'acceuil";
         die();
     }
+    public function pageNotFound()
+    {
+        $this->render('main.page-404');
+    }
 }
