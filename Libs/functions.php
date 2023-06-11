@@ -47,6 +47,13 @@ function loadFile($dir = __DIR__, $file = __FILE__, $data = [])
     }
     require_once ROOT_PATH . DS . $dir . DS . "$file.php";
 }
+function loadFileByPath($path, $file, $data = [])
+{
+    if ($data) {
+        extract($data);
+    }
+    require_once $path . DS . "$file.php";
+}
 function addition(float $nb1, float $nb2): float
 {
     return (float)($nb1 + $nb2);
