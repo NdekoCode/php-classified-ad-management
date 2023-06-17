@@ -120,4 +120,19 @@ class Form
         $this->formCode .= "</" . $tagName . ">$title</$tagName>";
         return $this;
     }
+    public function addInput($attributes = []): self
+    {
+        $attributes = array_merge([
+            'type' => 'text',
+        ], $attributes);
+
+        $this->formCode .= "<input {$this->addAttributes($attributes)} />";
+        return $this;
+    }
+
+    public function addElement(string $text, string $tagName = "div", array $attributes = []): self
+    {
+        $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>$text</$tagName>";
+        return $this;
+    }
 }
