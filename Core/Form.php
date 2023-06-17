@@ -114,10 +114,10 @@ class Form
         $this->formCode .= "</" . $tagName . ">";
         return $this;
     }
-    public function formTitle($title, $tagName = "h2"): self
+    public function formTitle($title, $tagName = "h2", array $attributes = []): self
     {
 
-        $this->formCode .= "</" . $tagName . ">$title</$tagName>";
+        $this->addElement($title, $tagName, $attributes);
         return $this;
     }
     public function addInput($attributes = []): self
@@ -133,6 +133,26 @@ class Form
     public function addElement(string $text, string $tagName = "div", array $attributes = []): self
     {
         $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>$text</$tagName>";
+        return $this;
+    }
+    public function addTextarea(string $value = "", array $attributes = []): self
+    {
+        $attributes = array_merge(['cols' => '30', 'rows' => '5'], $attributes);
+        $this->formCode .= "<textarea {$this->addAttributes($attributes)}>$value</textared>";
+        return $this;
+    }
+    public function addSelect(array $options, array $attributes = [])
+    {
+        $this->formCode .= "<select {$this->addAttributes($attributes)}>";
+        foreach ($options as $value => $text) {
+            $this->formCode .= "<option value=\"$value\">$text</option>";
+        }
+        $this->formCode .= "</select>";
+        return $this;
+    }
+    public function addButton(string $text, array $attributes = []): self
+    {
+        $this->addElement($text, 'button', $attributes);
         return $this;
     }
 }

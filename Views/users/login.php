@@ -17,7 +17,7 @@
             <div class="flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative">
                 <div class="absolute px-5 -mt-1 bg-white font-bod">Or</div>
             </div>
-            <button class="w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200">Login</button>
+            <a href="/users/register" class="w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200">Register</a>
         </div>
     </form>
 </div>
