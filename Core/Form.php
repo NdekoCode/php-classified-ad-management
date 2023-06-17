@@ -68,12 +68,91 @@ class Form
             foreach ($attributes as $attribute => $value) {
                 // if the attribute is in the shorts list array
                 if (in_array($attribute, $short) && $value === true) {
-                    $str .= " $attribute";
+                    $str .= "$attribute";
                 } else {
-                    $str .= " $attribute=$value";
+                    $str .= "$attribute=\"$value\"";
                 }
             }
         }
         return $str;
+    }
+    /**
+     * Add the begin tag of HTML form <form>
+     *
+     * @param string $action the path to send form data
+     * @param string $method form method (POST or GET)
+     * @param array $attributes Attributes to add in the form tag
+     * @return self
+     */
+    public function beginForm(string $action, $method = "POST", array $attributes = []): self
+    {
+        $this->formCode .= "<form action=\"$action\" method=\"$method\" {$this->addAttributes($attributes)}>";
+        return $this;
+    }
+    /**
+     * The end tag of html </form>
+     *
+     * @return self
+     */
+    public function endForm(): self
+    {
+        $this->formCode .= "</form>";
+        return $this;
+    }
+    public function addLabelFor(string $text, $attributes = []): self
+    {
+        $this->formCode .= "<label {$this->addAttributes($attributes)}>$text</label>";
+        return $this;
+    }
+    public function beginContainer($attributes = [], string $tagName = "div"): self
+    {
+        $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>";
+        return $this;
+    }
+    public function endContainer($tagName = "div"): self
+    {
+        $this->formCode .= "</" . $tagName . ">";
+        return $this;
+    }
+    public function formTitle($title, $tagName = "h2", array $attributes = []): self
+    {
+
+        $this->addElement($title, $tagName, $attributes);
+        return $this;
+    }
+    public function addInput($attributes = []): self
+    {
+        $attributes = array_merge([
+            'type' => 'text',
+        ], $attributes);
+
+        $this->formCode .= "<input {$this->addAttributes($attributes)} />";
+        return $this;
+    }
+
+    public function addElement(string $text, string $tagName = "div", array $attributes = []): self
+    {
+        $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>$text</$tagName>";
+        return $this;
+    }
+    public function addTextarea(string $value = "", array $attributes = []): self
+    {
+        $attributes = array_merge(['cols' => '30', 'rows' => '5'], $attributes);
+        $this->formCode .= "<textarea {$this->addAttributes($attributes)}>$value</textared>";
+        return $this;
+    }
+    public function addSelect(array $options, array $attributes = [])
+    {
+        $this->formCode .= "<select {$this->addAttributes($attributes)}>";
+        foreach ($options as $value => $text) {
+            $this->formCode .= "<option value=\"$value\">$text</option>";
+        }
+        $this->formCode .= "</select>";
+        return $this;
+    }
+    public function addButton(string $text, array $attributes = []): self
+    {
+        $this->addElement($text, 'button', $attributes);
+        return $this;
     }
 }
