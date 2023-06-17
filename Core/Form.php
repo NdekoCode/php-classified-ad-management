@@ -76,4 +76,27 @@ class Form
         }
         return $str;
     }
+    /**
+     * Add the begin tag of HTML form <form>
+     *
+     * @param string $action the path to send form data 
+     * @param string $method form method (POST or GET)
+     * @param array $attributes Attributes to add in the form tag
+     * @return self
+     */
+    public function beginForm(string $action, $method = "POST", array $attributes = []): self
+    {
+        $this->formCode .= "<form action=$action $method=$method {$this->addAttributes($attributes)}";
+        return $this;
+    }
+    /**
+     * The end tag of html </form>
+     *
+     * @return self
+     */
+    public function endForm(): self
+    {
+        $this->formCode .= "</>";
+        return $this;
+    }
 }
