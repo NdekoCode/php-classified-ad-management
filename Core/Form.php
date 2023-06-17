@@ -68,9 +68,9 @@ class Form
             foreach ($attributes as $attribute => $value) {
                 // if the attribute is in the shorts list array
                 if (in_array($attribute, $short) && $value === true) {
-                    $str .= " $attribute";
+                    $str .= "$attribute";
                 } else {
-                    $str .= " $attribute=$value";
+                    $str .= "$attribute=\"$value\"";
                 }
             }
         }
@@ -79,14 +79,14 @@ class Form
     /**
      * Add the begin tag of HTML form <form>
      *
-     * @param string $action the path to send form data 
+     * @param string $action the path to send form data
      * @param string $method form method (POST or GET)
      * @param array $attributes Attributes to add in the form tag
      * @return self
      */
     public function beginForm(string $action, $method = "POST", array $attributes = []): self
     {
-        $this->formCode .= "<form action=$action $method=$method {$this->addAttributes($attributes)}";
+        $this->formCode .= "<form action=\"$action\" method=\"$method\" {$this->addAttributes($attributes)}>";
         return $this;
     }
     /**
@@ -96,7 +96,28 @@ class Form
      */
     public function endForm(): self
     {
-        $this->formCode .= "</>";
+        $this->formCode .= "</form>";
+        return $this;
+    }
+    public function addLabelFor(string $text, $attributes = []): self
+    {
+        $this->formCode .= "<label {$this->addAttributes($attributes)}>$text</label>";
+        return $this;
+    }
+    public function beginInputContainer($attributes = [], string $tagName = "div"): self
+    {
+        $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>";
+        return $this;
+    }
+    public function endInputContainer($tagName = "div"): self
+    {
+        $this->formCode .= "</" . $tagName . ">";
+        return $this;
+    }
+    public function formTitle($title, $tagName = "h2"): self
+    {
+
+        $this->formCode .= "</" . $tagName . ">$title</$tagName>";
         return $this;
     }
 }

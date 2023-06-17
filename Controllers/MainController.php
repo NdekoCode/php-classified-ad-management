@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 class MainController extends Controller
 {
+    protected $form;
     /**
      * Fournit la page principage de l'application
      *

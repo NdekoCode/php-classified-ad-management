@@ -3,7 +3,10 @@
         <div class="py-8">
             <h2 class="my-3 text-3xl">Annonces</h2>
         </div>
-        <input class="p-3 border-[1px] border-slate-500 rounded-sm w-80" placeholder="E-Mail or Phone number" />
+        <div class="mb-3">
+
+            <input class="p-3 border-[1px] border-slate-500 rounded-sm w-80" placeholder="E-Mail or Phone number" />
+        </div>
         <div class="flex flex-col space-y-1">
             <input class="p-3 border-[1px] border-slate-500 rounded-sm w-80" placeholder="Password" />
             <a href="#" class="font-bold text-[#0070ba] text-sm">Forgot password?</a>
