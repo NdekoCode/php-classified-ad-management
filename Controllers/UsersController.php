@@ -14,16 +14,16 @@ class UsersController extends MainController
     {
         $form = new Form();
         $form->beginForm("/user/login", "POST")
-            ->beginInputContainer([
+            ->beginContainer([
                 'class' => "py-8"
             ])
             ->formTitle("Annonces Login")
-            ->endInputContainer()
-            ->beginInputContainer([
+            ->endContainer()
+            ->beginContainer([
                 'class' => "mb-3"
             ])
             // Input
-            ->endInputContainer()
+            ->endContainer()
             ->endForm();
         $loginForm = $form->create();
         varDumper($loginForm);

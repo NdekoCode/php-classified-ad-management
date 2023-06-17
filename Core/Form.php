@@ -104,12 +104,12 @@ class Form
         $this->formCode .= "<label {$this->addAttributes($attributes)}>$text</label>";
         return $this;
     }
-    public function beginInputContainer($attributes = [], string $tagName = "div"): self
+    public function beginContainer($attributes = [], string $tagName = "div"): self
     {
         $this->formCode .= "<" . $tagName . " {$this->addAttributes($attributes)}>";
         return $this;
     }
-    public function endInputContainer($tagName = "div"): self
+    public function endContainer($tagName = "div"): self
     {
         $this->formCode .= "</" . $tagName . ">";
         return $this;
