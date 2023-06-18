@@ -3165,7 +3165,6 @@ video {
 
 .alert.close {
   animation: fadeOut 0.35s forwards;
-  display: none;
 }
 
 @keyframes fadeIn {
@@ -3185,6 +3184,7 @@ video {
 
   100% {
     opacity: 0;
+    display: none;
   }
 }
 

@@ -81,7 +81,7 @@ class UsersModel extends Model
     }
 
     /**
-     * Set the value of password
+     * Set the value of password with a hash on PASSWORD_ARGON2I
      *
      * @return  self
      */
@@ -148,6 +148,26 @@ class UsersModel extends Model
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of active
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
 
         return $this;
     }

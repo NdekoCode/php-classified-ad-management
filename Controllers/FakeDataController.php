@@ -36,7 +36,7 @@ class FakeDataController extends Controller
             $fakeData[$k]['lastName'] = $data->lastName;
             $fakeData[$k]['email'] = $data->email;
             $fakeData[$k]['avatar'] = $data->image;
-            $fakeData[$k]['password'] = password_hash($data->email, PASSWORD_ARGON2I);
+            $fakeData[$k]['password'] = $data->password;
             $fakeData[$k]['active'] = (int)mt_rand(0, 1);
             $fakeData[$k]['createdAt'] = randomDate('2020-06-11', '2023-06-11');
         }

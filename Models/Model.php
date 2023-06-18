@@ -226,9 +226,9 @@ abstract class Model extends Db
      *
      * @param array $params
      * @param boolean $all
-     * @return array|bool
+     * @return self|array|bool
      */
-    public function findBy(array $params, $all = true, string $separator = 'AND'): array|bool|self
+    public function findBy(array $params, $all = true, string $separator = 'AND'): array|self|bool
     {
         $paramsData = $this->getParamsValues($params, $separator);
         $strparams = $paramsData[0];

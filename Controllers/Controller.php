@@ -37,4 +37,9 @@ abstract class Controller
 
         return $this;
     }
+    public function redirect(string $url, $httpCode = 0): void
+    {
+        header("Location: $url", response_code: $httpCode);
+        exit();
+    }
 }

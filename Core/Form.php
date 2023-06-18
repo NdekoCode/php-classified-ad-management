@@ -74,7 +74,7 @@ class Form
                 $this->errors['email'] =  "Email is incorrect";
             }
             // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-            $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+            $regex = "/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/";
             if (!preg_match($regex, $formData['password'])) {
                 $fieldValid = false;
                 $this->errors['password'] = "Password must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
@@ -269,7 +269,7 @@ HTML;
             ])
             ->formTitle("Annonces Register", 'h2', ["class" => "font-medium my-3 text-3xl"])
             ->endContainer()
-            // Input FistName
+            // Input FirstName
             ->beginContainer([
                 'class' => "lg:flex lg:items-center lg:gap-x-3 w-full lg:max-w-[320px]",
             ])
