@@ -13,6 +13,9 @@ class UsersController extends MainController
     public function login()
     {
         $form = new Form();
+        if (!empty($_POST)) {
+            $form->validateFormLogin($_POST);
+        }
         $form = $form->getLoginForm($_POST);
         $title = "Login";
         $this->render('users.auth', compact('form', 'title'));
@@ -20,6 +23,9 @@ class UsersController extends MainController
     public function register()
     {
         $form = new Form();
+        if (!empty($_POST)) {
+            $form->validateRegisterForm($_POST);
+        }
         $form = $form->getRegisterForm($_POST);
         $title = "Register";
         $this->render('users.auth', compact('form', 'title'));

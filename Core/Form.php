@@ -37,34 +37,57 @@ class Form
      */
     public function validate(array $form, array $fields): bool
     {
+        $valid = true;
         // On parcours les champs
         foreach ($fields as $field) {
             // On verifie si le champs est absent ou vide dans le formulaire
             if ($this->validator->notExist($form[$field])) {
                 $this->errors[$field] = ucfirst($field) . " is required";
                 // On sort en retournant false
-                return false;
+                $valid  = false;
             }
         }
-        return true;
+        return $valid;
     }
     public function validateFormLogin(array $formData)
     {
-        foreach ($formData as $field => $value) {
+        // Retourne true: si tous les champs on été remplis
+        return $this->validate($formData, ["email", 'password']);;
+    }
+    /**
+     * Valid register form Data when user want to register
+     *
+     * @param array $formData
+     * @return boolean
+     */
+    public function validateRegisterForm(array $formData): bool
+    {
+        // Retourne true: si tous les de d'inscription sont correct
+        $fieldValid =  $this->validate($formData, [
+            'firstName', 'lastName', 'email', 'password', 'confpassword'
+        ]);
+        if (!$fieldValid) {
+            return $fieldValid;
+        }
+        if (isset($formData['password'], $formData['email'], $formData['confpassword'])) {
+            if (!$this->validator->isValidEmail($formData['email'])) {
+                $fieldValid = false;
+                $this->errors['email'] =  "Email is incorrect";
+            }
+            // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+            $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+            if (!preg_match($regex, $formData['password'])) {
+                $fieldValid = false;
+                $this->errors['password'] = "Password must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
+            }
 
-            if ($field === 'email' && !$this->validator->isValidEmail($value)) {
-                $this->errors[$field] = ucfirst($field) . " is incorrect";
-                return false;
-            } elseif ($field === "password") {
-                // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-
-                $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
-                if (!preg_match($regex, $value)) {
-                    $this->errors[$field] = ucfirst($field) . " must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
-                    return false;
-                }
+            if ($formData['password'] !== $formData['confpassword']) {
+                $this->errors['password'] = "The two password doesn't match";
+                $fieldValid = false;
             }
         }
+
+        return $fieldValid;
     }
     /**
      * Add attribute to the HTML field
@@ -170,6 +193,22 @@ class Form
         $this->addElement($text, 'button', $attributes);
         return $this;
     }
+    /**
+     * Add errors display
+     *
+     * @param string $errorText
+     * @return self
+     */
+    public function errorsElement(string $errorText): self
+    {
+        if (!empty($errorText)) {
+
+            $this->formCode .= <<<HTML
+            <div class="text-error"><p><span class="font-medium">Oops! </span>$errorText</p></div>
+HTML;
+        }
+        return $this;
+    }
     public function getLoginForm(array $data = []): string
     {
         $this->beginForm("/users/login", "POST", ['class' => "form-shadow"])
@@ -187,17 +226,17 @@ class Form
                 'type' => 'email',
                 'name' => 'email',
                 'value' => $data['email'] ?? "",
-                'class' => "input-field",
-            ])
+                'class' => isset($this->errors['email']) ? "input-field invalid" : 'input-field',
+            ])->errorsElement($this->errors['email'] ?? "")
             ->endContainer()
             ->beginContainer([
                 'class' => "flex flex-col space-y-1",
             ])->addInput([
                 'type' => "password",
-                'class' => "input-field",
+                'class' => isset($this->errors['password']) ? 'input-field invalid' : 'input-field',
                 "name" => 'password',
                 "placeholder" => "Password",
-            ])
+            ])->errorsElement($this->errors['password'] ?? "")
             ->addElement('Forgot password?', 'a', [
                 'class' => "bold-link",
                 "href" => "#"
@@ -238,20 +277,20 @@ class Form
             ->beginContainer([
                 'class' => "mb-3 basis-1/2",
             ])->addInput([
-                'class' => "input-field",
+                'class' => isset($this->errors['firstName']) ? 'input-field invalid' : 'input-field',
                 "placeholder" => "Your firstName",
                 "name" => "firstName",
                 'value' => $data['firstName'] ?? ""
-            ])
+            ])->errorsElement($this->errors['firstName'] ?? "")
             ->endContainer()
             ->beginContainer([
                 'class' => "mb-3  basis-1/2",
             ])->addInput([
-                'class' => "input-field",
+                'class' => isset($this->errors['lastName']) ? 'input-field invalid' : 'input-field',
                 "placeholder" => "Your lastName",
                 "name" => "lastName",
                 'value' => $data['lastName'] ?? ""
-            ])
+            ])->errorsElement($this->errors['lastName'] ?? "")
             ->endContainer()
             ->endContainer()
 
@@ -264,8 +303,8 @@ class Form
                 'type' => 'email',
                 'name' => 'email',
                 'value' => $data['email'] ?? "",
-                'class' => "input-field"
-            ])
+                'class' => isset($this->errors['email']) ? 'input-field invalid' : 'input-field',
+            ])->errorsElement($this->errors['email'] ?? "")
             ->endContainer()
             ->beginContainer([
                 'class' => "field-container"
@@ -275,8 +314,8 @@ class Form
                 "placeholder" => "Password",
                 'type' => 'password',
                 'name' => 'password',
-                'class' => "input-field"
-            ])
+                'class' =>  isset($this->errors['password']) ? 'input-field invalid' : 'input-field',
+            ])->errorsElement($this->errors['password'] ?? "")
             ->endContainer()
             ->beginContainer([
                 'class' => "field-container"
@@ -285,9 +324,9 @@ class Form
             ->addInput([
                 "placeholder" => "Confirm Password",
                 'type' => 'password',
-                'name' => 'confpassword',
-                'class' => "input-field"
-            ])
+                'name' => "confpassword",
+                'class' =>  isset($this->errors['confpassword']) ? 'input-field invalid' : 'input-field',
+            ])->errorsElement($this->errors['confpassword'] ?? "")
             ->endContainer()
             ->beginContainer([
                 'class' => "flex flex-col w-full space-y-5",
