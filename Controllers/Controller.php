@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UsersModel;
+
 abstract class Controller
 {
     /**
@@ -10,6 +12,8 @@ abstract class Controller
      * @var string
      */
     protected $layout = "layout";
+
+    protected $messages = [];
     public function render(string $pagePath = 'main.index', array $data = [])
     {
         // Par exemple : $data = ['a'=>'Valeur de a','b'=>'Valeur de B'], alors extract($data) donnera deux variables dont $a et $b et leurs contenus sont leurs valeurs dans le tableau $data
@@ -34,5 +38,31 @@ abstract class Controller
         $this->layout = $layout;
 
         return $this;
+    }
+    public function redirect(string $url, $httpCode = 0): void
+    {
+        header("Location: $url", response_code: $httpCode);
+        exit();
+    }
+    public function isValidUser(UsersModel $user): bool
+    {
+        return $user->getId() === $_SESSION['user']['id'] && $user->getEmail() === $_SESSION['user']['email'];
+    }
+    public function isConnect()
+    {
+        return isset($_SESSION['user']) && !empty($_SESSION['user']);
+    }
+    public function forceConnexion()
+    {
+        if (!$this->isConnect()) {
+            $this->redirect('/users/login', 301);
+        }
+    }
+    public function redirectConnectedUser()
+    {
+        if ($this->isConnect()) {
+
+            $this->redirect('/users/profile');
+        }
     }
 }

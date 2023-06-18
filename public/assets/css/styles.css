@@ -4,3 +4,59 @@
 .container {
   @apply mx-auto max-w-7xl px-5 md:px-0;
 }
+.input-field {
+  @apply p-3 border ring transition-all duration-300 ring-transparent outline-none border-slate-500 rounded-sm w-full;
+}
+.text-error {
+  @apply mt-1 text-xs text-red-600 dark:text-red-500 max-w-[300px];
+}
+.input-field:focus {
+  @apply ring-1 ring-blue-300 ring-offset-2;
+}
+.form-shadow {
+  @apply p-10 border -mt-10 border-slate-200 rounded-md flex flex-col items-center space-y-3;
+}
+.btn-form {
+  @apply w-full bg-[#0070ba] rounded-3xl p-3 text-white font-bold transition duration-200 hover:bg-[#003087] disabled:opacity-70 disabled:cursor-not-allowed;
+}
+.btn-form-outline {
+  @apply w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200 text-center;
+}
+
+.bold-link {
+  @apply font-bold hover:underline text-[#0070ba] text-sm;
+}
+.field-container {
+  @apply mb-3 w-full;
+}
+.invalid {
+  @apply bg-red-50 border-red-500 text-red-900 placeholder-red-300;
+}
+.invalid:focus {
+  @apply ring-red-500 border-red-500;
+}
+.alert {
+  display: block;
+  animation: fadeIn 0.35s forwards;
+}
+.alert.close {
+  animation: fadeOut 0.35s forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}

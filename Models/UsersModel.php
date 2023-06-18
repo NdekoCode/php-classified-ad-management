@@ -5,18 +5,31 @@ namespace App\Models;
 class UsersModel extends Model
 {
     protected  $id;
-    protected string $pseudo;
+    protected string $firstName;
+    protected string $lastName;
+    protected string|null $avatar;
     protected string $email;
     protected string $password;
-    protected array $fillable = ['email', 'pseudo', 'password', 'active'];
-    protected array $verifyFields = ['email', 'id'];
+    protected bool|int|null $active;
+    protected array $fillable = ['email', 'firstName', 'lastName', 'password', 'active', 'avatar'];
+
+    protected $verifyFields = ['email', 'id'];
     public function __construct()
     {
         parent::__construct();
         $this->table = "users";
         $this->fetchClass = self::class;
     }
-
+    /**
+     * Retrive a user by email
+     *
+     * @param string $email the email of the user
+     * @return array|bool
+     */
+    public function findOneByEmail(string $email): array|bool
+    {
+        return $this->findBy(['email' => $email], false);
+    }
     /**
      * Get the value of id
      */
@@ -37,25 +50,7 @@ class UsersModel extends Model
         return $this;
     }
 
-    /**
-     * Get the value of pseudo
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
 
-    /**
-     * Set the value of pseudo
-     *
-     * @return  self
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
 
     /**
      * Get the value of email
@@ -86,7 +81,7 @@ class UsersModel extends Model
     }
 
     /**
-     * Set the value of password
+     * Set the value of password with a hash on PASSWORD_ARGON2I
      *
      * @return  self
      */
@@ -98,22 +93,95 @@ class UsersModel extends Model
     }
 
     /**
-     * Get the value of verifyFields
+     * Get the value of firstName
      */
-    public function getVerifyFields()
+    public function getFirstName()
     {
-        return $this->verifyFields;
+        return $this->firstName;
     }
 
     /**
-     * Set the value of verifyFields
+     * Set the value of firstName
      *
      * @return  self
      */
-    public function setVerifyFields($verifyFields)
+    public function setFirstName($firstName)
     {
-        $this->verifyFields = $verifyFields;
+        $this->firstName = $firstName;
 
         return $this;
+    }
+
+    /**
+     * Get the value of lastName
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set the value of lastName
+     *
+     * @return  self
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of active
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'id' => $this->id,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'email' => $this->email,
+            'avatar' => $this->avatar,
+            'active' => $this->active,
+
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AnnoncesModel;
+use App\Models\UsersModel;
 
 class FakeDataController extends Controller
 {
@@ -23,5 +24,28 @@ class FakeDataController extends Controller
         foreach ($fakeData as $data) {
             $model->hydrateData($data)->create();
         }
+    }
+    public function addFakeUsers()
+    {
+
+        $filePath = ROOT_LIBS . 'data' . DS . 'user-fake-data.json';
+        $fileData = json_decode(file_get_contents($filePath));
+        $fakeData = [];
+        foreach ($fileData as $k => $data) {
+            $fakeData[$k]['firstName'] = $data->firstName;
+            $fakeData[$k]['lastName'] = $data->lastName;
+            $fakeData[$k]['email'] = $data->email;
+            $fakeData[$k]['avatar'] = $data->image;
+            $fakeData[$k]['password'] = $data->password;
+            $fakeData[$k]['active'] = (int)mt_rand(0, 1);
+            $fakeData[$k]['createdAt'] = randomDate('2020-06-11', '2023-06-11');
+        }
+
+        $model = new UsersModel();
+        foreach ($fakeData as $data) {
+            $model->hydrateData($data)->create();
+        }
+
+        debugPrint($fakeData);
     }
 }

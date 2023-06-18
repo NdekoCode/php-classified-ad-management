@@ -10,6 +10,13 @@ class Validator
         return trim(htmlspecialchars(strip_tags($fieldValue)));
     }
 
+    public function removeDirt($data): mixed
+    {
+        foreach ($data as $k => $value) {
+            $data[$k] = $this->validFieldData($value);
+        }
+        return $data;
+    }
     public function hasValue($value): bool
     {
         return isset($value) || !empty($value);
