@@ -3054,6 +3054,11 @@ video {
   text-decoration-line: underline;
 }
 
+.field-container {
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -3402,10 +3407,6 @@ video {
 
   .lg\:flex {
     display: flex;
-  }
-
-  .lg\:w-1\/2 {
-    width: 50%;
   }
 
   .lg\:max-w-\[320px\] {

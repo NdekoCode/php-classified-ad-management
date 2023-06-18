@@ -13,14 +13,14 @@ class UsersController extends MainController
     public function login()
     {
         $form = new Form();
-        $form = $form->getLoginForm();
+        $form = $form->getLoginForm($_POST);
         $title = "Login";
         $this->render('users.auth', compact('form', 'title'));
     }
     public function register()
     {
         $form = new Form();
-        $form = $form->getRegisterForm();
+        $form = $form->getRegisterForm($_POST);
         $title = "Register";
         $this->render('users.auth', compact('form', 'title'));
     }

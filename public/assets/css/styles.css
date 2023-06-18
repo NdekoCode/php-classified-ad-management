@@ -20,3 +20,6 @@
 .bold-link {
   @apply font-bold hover:underline text-[#0070ba] text-sm;
 }
+.field-container {
+  @apply mb-3 w-full;
+}

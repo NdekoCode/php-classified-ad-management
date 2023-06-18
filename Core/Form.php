@@ -155,23 +155,24 @@ class Form
         $this->addElement($text, 'button', $attributes);
         return $this;
     }
-    public function getLoginForm(): string
+    public function getLoginForm(array $data = []): string
     {
-        $this->beginForm("/user/login", "POST", ['class' => "form-shadow"])
+        $this->beginForm("/users/login", "POST", ['class' => "form-shadow"])
             ->beginContainer([
                 'class' => "py-8"
             ])
             ->formTitle("Annonces Login", 'h2', ["class" => "font-medium my-3 text-3xl"])
             ->endContainer()
             ->beginContainer([
-                'class' => "mb-3 w-full"
+                'class' => "field-container"
             ])
             // Input Email
             ->addInput([
                 "placeholder" => "E-Mail or Phone number",
                 'type' => 'email',
+                'name' => 'email',
+                'value' => $data['email'] ?? "",
                 'class' => "input-field",
-                'name' => 'email'
             ])
             ->endContainer()
             ->beginContainer([
@@ -179,8 +180,8 @@ class Form
             ])->addInput([
                 'type' => "password",
                 'class' => "input-field",
+                "name" => 'password',
                 "placeholder" => "Password",
-                "name" => 'password'
             ])
             ->addElement('Forgot password?', 'a', [
                 'class' => "bold-link",
@@ -207,9 +208,9 @@ class Form
             ->endForm();
         return $this->create();
     }
-    public function getRegisterForm(): string
+    public function getRegisterForm(array $data = []): string
     {
-        return $this->beginForm("/user/login", "POST", ['class' => "p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center "])
+        return $this->beginForm("/users/register", "POST", ['class' => "p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center "])
             ->beginContainer([
                 'class' => "py-8"
             ])
@@ -225,6 +226,7 @@ class Form
                 'class' => "input-field",
                 "placeholder" => "Your firstName",
                 "name" => "firstName",
+                'value' => $data['firstName'] ?? ""
             ])
             ->endContainer()
             ->beginContainer([
@@ -233,23 +235,25 @@ class Form
                 'class' => "input-field",
                 "placeholder" => "Your lastName",
                 "name" => "lastName",
+                'value' => $data['lastName'] ?? ""
             ])
             ->endContainer()
             ->endContainer()
 
             ->beginContainer([
-                'class' => "mb-3 w-full"
+                'class' => "field-container"
             ])
             // Input Email
             ->addInput([
                 "placeholder" => "E-Mail or Phone number",
                 'type' => 'email',
                 'name' => 'email',
+                'value' => $data['email'] ?? "",
                 'class' => "input-field"
             ])
             ->endContainer()
             ->beginContainer([
-                'class' => "mb-3 w-full"
+                'class' => "field-container"
             ])
             // Input Email
             ->addInput([
@@ -260,7 +264,7 @@ class Form
             ])
             ->endContainer()
             ->beginContainer([
-                'class' => "mb-3 w-full"
+                'class' => "field-container"
             ])
             // Input Email
             ->addInput([
@@ -283,7 +287,7 @@ class Form
             ->addElement("Or", 'div', ['class' => "absolute px-5 -mt-1 bg-white font-bod"])
             ->endContainer()
             ->addElement("Login", 'a', [
-                'href' => "/users/register",
+                'href' => "/users/login",
                 "class" => "btn-form-outline"
             ])
             ->endContainer()
