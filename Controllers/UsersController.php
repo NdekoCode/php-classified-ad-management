@@ -93,9 +93,15 @@ class UsersController extends MainController
         $userModel = new UsersModel();
         $user = $userModel->find($_SESSION['user']['id']);
         if ($this->isValidUser($user)) {
-            $this->render('main.profile', compact('title', 'user'));
+            $this->render('users.profile', compact('title', 'user'));
         } else {
             $this->redirect('/users/login');
         }
+    }
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        session_destroy();
+        $this->redirect('/users/login');
     }
 }
