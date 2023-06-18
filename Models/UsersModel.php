@@ -16,7 +16,16 @@ class UsersModel extends Model
         $this->table = "users";
         $this->fetchClass = self::class;
     }
-
+    /**
+     * Retrive a user by email
+     *
+     * @param string $email the email of the user
+     * @return array|bool
+     */
+    public function findOneByEmail(string $email): array|bool
+    {
+        return $this->findBy(['email' => $email], false);
+    }
     /**
      * Get the value of id
      */
