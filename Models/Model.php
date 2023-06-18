@@ -113,7 +113,14 @@ abstract class Model extends Db
         return trim($sql);
     }
 
-    public function create(Model|array $attributes = [], $hydate = false)
+    /**
+     * Insert data in the database
+     *
+     * @param array $attributes
+     * @param boolean $hydate
+     * @return PDOStatement|boolean
+     */
+    public function create(Model|array $attributes = [], $hydate = false): PDOStatement|bool
     {
         $params = [];
         if (empty($attributes)) {
@@ -130,15 +137,8 @@ abstract class Model extends Db
         $params = $dataParams[1];
 
         $keys = implode(', ', array_keys($params));
-        $searchParam = $this->getVerifiedFieldData($this);
-        $query = $this->findBy($searchParam, false, 'OR');
-
-        if (is_bool($query)) {
-            $sql = "INSERT INTO $this->table($keys) VALUES($values)";
-            $this->makeQuery($sql, $params);
-        } else {
-            debugPrint("La donnée existe déjà");
-        }
+        $sql = "INSERT INTO $this->table($keys) VALUES($values)";
+        return $this->makeQuery($sql, $params);
     }
     public function delete(int $id)
     {
@@ -176,7 +176,7 @@ abstract class Model extends Db
             debugPrint("La donnée n'existe déjà");
         }
     }
-    protected function getVerifiedFieldData(array|Model $params): array
+    public function getVerifiedFieldData(array|Model $params): array
     {
         $verifyDataFields = [];
         foreach ($params as $key => $v) {

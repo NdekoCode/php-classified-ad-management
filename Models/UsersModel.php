@@ -7,9 +7,10 @@ class UsersModel extends Model
     protected  $id;
     protected string $firstName;
     protected string $lastName;
-    protected string $avatar;
+    protected string|null $avatar;
     protected string $email;
     protected string $password;
+    protected bool|int|null $active;
     protected array $fillable = ['email', 'firstName', 'lastName', 'password', 'active', 'avatar'];
 
     protected $verifyFields = ['email', 'id'];

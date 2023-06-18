@@ -10,6 +10,8 @@ abstract class Controller
      * @var string
      */
     protected $layout = "layout";
+
+    protected $messages = [];
     public function render(string $pagePath = 'main.index', array $data = [])
     {
         // Par exemple : $data = ['a'=>'Valeur de a','b'=>'Valeur de B'], alors extract($data) donnera deux variables dont $a et $b et leurs contenus sont leurs valeurs dans le tableau $data
