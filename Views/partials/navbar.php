@@ -6,12 +6,16 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
             </svg>
 
-            <span class="self-center text-xl font-semibold whitespace-nowrap">Termcode</span>
+            <span class="self-center text-xl font-semibold whitespace-nowrap">Annonce</span>
         </a>
         <div class="mt-2 sm:mt-0 sm:flex md:order-2">
-            <!-- Login Button -->
-            <a href="/users/login" class="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg">Login</a>
-            <a href="/users/register" class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">Register</a>
+            <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
+                <a href="/users/logout" class="rounde mr-3 hidden bg-gray-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">Logout</a>
+            <?php else : ?>
+                <!-- Login Button -->
+                <a href="/users/login" class="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg">Login</a>
+                <a href="/users/register" class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">Register</a>
+            <?php endif; ?>
             <!-- Register Button -->
             <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden" aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
