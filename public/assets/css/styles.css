@@ -17,7 +17,7 @@
   @apply p-10 border -mt-10 border-slate-200 rounded-md flex flex-col items-center space-y-3;
 }
 .btn-form {
-  @apply w-full bg-[#0070ba] rounded-3xl p-3 text-white font-bold transition duration-200 hover:bg-[#003087];
+  @apply w-full bg-[#0070ba] rounded-3xl p-3 text-white font-bold transition duration-200 hover:bg-[#003087] disabled:opacity-70 disabled:cursor-not-allowed;
 }
 .btn-form-outline {
   @apply w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200 text-center;
@@ -30,7 +30,7 @@
   @apply mb-3 w-full;
 }
 .invalid {
-  @apply bg-red-50 border-red-500 text-red-900 placeholder-red-700;
+  @apply bg-red-50 border-red-500 text-red-900 placeholder-red-300;
 }
 .invalid:focus {
   @apply ring-red-500 border-red-500;

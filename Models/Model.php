@@ -332,9 +332,30 @@ abstract class Model extends Db
 
         return $this;
     }
+
     public function slugify(string $value): string
     {
         $value = $this->validator->validFieldData($value);
         return strtolower(trim(preg_replace("/\W+/i", '-', $value), '-'));
+    }
+
+    /**
+     * Get the value of verifyFields
+     */
+    public function getVerifyFields()
+    {
+        return $this->verifyFields;
+    }
+
+    /**
+     * Set the value of verifyFields
+     *
+     * @return  self
+     */
+    public function setVerifyFields($verifyFields)
+    {
+        $this->verifyFields = $verifyFields;
+
+        return $this;
     }
 }

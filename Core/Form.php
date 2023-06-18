@@ -212,7 +212,7 @@ HTML;
     {
         $this->beginForm("/users/login", "POST", ['class' => "form-shadow"])
             ->beginContainer([
-                'class' => "py-8"
+                'class' => "py-5"
             ])
             ->formTitle("Annonces Login", 'h2', ["class" => "font-medium my-3 text-3xl"])
             ->endContainer()
@@ -263,9 +263,9 @@ HTML;
     }
     public function getRegisterForm(array $data = []): string
     {
-        return $this->beginForm("/users/register", "POST", ['class' => "p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center "])
+        return $this->beginForm("/users/register", "POST", ['class' => "form-shadow"])
             ->beginContainer([
-                'class' => "py-8"
+                'class' => "py-5"
             ])
             ->formTitle("Annonces Register", 'h2', ["class" => "font-medium my-3 text-3xl"])
             ->endContainer()

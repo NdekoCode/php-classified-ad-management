@@ -25,10 +25,12 @@ class UsersController extends MainController
     {
         $form = new Form();
         if (!empty($_POST)) {
-            $_POST = $this->form->validator->removeDirt($_POST);
+            $_POST = $form->validator->removeDirt($_POST);
             $isValid = $form->validateRegisterForm($_POST);
             if ($isValid) {
                 extract($_POST);
+                $password = password_hash($password, PASSWORD_ARGON2I);
+                varDumper($password);
             }
         }
         $form = $form->getRegisterForm($_POST);
