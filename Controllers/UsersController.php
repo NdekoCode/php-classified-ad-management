@@ -58,16 +58,7 @@ class UsersController extends MainController
                     $verify = password_verify($data['password'], $user->getPassword());
 
                     if ($verify) {
-
-                        $_SESSION['user'] = [
-                            'id' => $user->getId(),
-                            'firstName' => $user->getFirstName(),
-                            'lastName' => $user->getLastName(),
-                            'email' => $user->getEmail(),
-                            'avatar' => $user->getAvatar(),
-                            'active' => $user->getActive(),
-
-                        ];
+                        $user->setSession();
                         $_SESSION['alert']['success'] = "Your are connected successfully";
                         $this->redirect('/users/profile');
                     } else {

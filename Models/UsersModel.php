@@ -171,4 +171,17 @@ class UsersModel extends Model
 
         return $this;
     }
+
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'id' => $this->id,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'email' => $this->email,
+            'avatar' => $this->avatar,
+            'active' => $this->active,
+
+        ];
+    }
 }
