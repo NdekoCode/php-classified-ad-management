@@ -8,7 +8,7 @@
   @apply p-3 border ring transition-all duration-300 ring-transparent outline-none border-slate-500 rounded-sm w-full;
 }
 .text-error {
-  @apply mt-1 text-xs text-red-600 dark:text-red-500;
+  @apply mt-1 text-xs text-red-600 dark:text-red-500 max-w-[300px];
 }
 .input-field:focus {
   @apply ring-1 ring-blue-300 ring-offset-2;

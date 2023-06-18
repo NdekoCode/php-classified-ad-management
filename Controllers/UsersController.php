@@ -14,6 +14,7 @@ class UsersController extends MainController
     {
         $form = new Form();
         if (!empty($_POST)) {
+            $_POST = $this->form->validator->removeDirt($_POST);
             $form->validateFormLogin($_POST);
         }
         $form = $form->getLoginForm($_POST);
@@ -24,7 +25,11 @@ class UsersController extends MainController
     {
         $form = new Form();
         if (!empty($_POST)) {
-            $form->validateRegisterForm($_POST);
+            $_POST = $this->form->validator->removeDirt($_POST);
+            $isValid = $form->validateRegisterForm($_POST);
+            if ($isValid) {
+                extract($_POST);
+            }
         }
         $form = $form->getRegisterForm($_POST);
         $title = "Register";

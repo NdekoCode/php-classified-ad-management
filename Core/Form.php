@@ -12,8 +12,8 @@ class Form
      * @var string
      */
     protected string $formCode = '';
-    protected $validator;
-    protected $errors = [];
+    public $validator;
+    public $errors = [];
     public function __construct()
     {
         $this->validator = new Validator();
@@ -27,7 +27,6 @@ class Form
     {
         return $this->formCode;
     }
-
     /**
      * Valid if all fields is filled
      *
