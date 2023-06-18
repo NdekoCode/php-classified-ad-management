@@ -35,3 +35,28 @@
 .invalid:focus {
   @apply ring-red-500 border-red-500;
 }
+.alert {
+  display: block;
+  animation: fadeIn 0.35s forwards;
+}
+.alert.close {
+  animation: fadeOut 0.35s forwards;
+  display: none;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
