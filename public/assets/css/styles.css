@@ -4,3 +4,19 @@
 .container {
   @apply mx-auto max-w-7xl px-5 md:px-0;
 }
+.input-field {
+  @apply p-3 border-[1px]  outline-none border-slate-500 rounded-sm w-full;
+}
+.form-shadow {
+  @apply p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center space-y-3;
+}
+.btn-form {
+  @apply w-full bg-[#0070ba] rounded-3xl p-3 text-white font-bold transition duration-200 hover:bg-[#003087];
+}
+.btn-form-outline {
+  @apply w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200 text-center;
+}
+
+.bold-link {
+  @apply font-bold hover:underline text-[#0070ba] text-sm;
+}

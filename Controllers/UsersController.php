@@ -17,4 +17,11 @@ class UsersController extends MainController
         $title = "Login";
         $this->render('users.auth', compact('form', 'title'));
     }
+    public function register()
+    {
+        $form = new Form();
+        $form = $form->getRegisterForm();
+        $title = "Register";
+        $this->render('users.auth', compact('form', 'title'));
+    }
 }

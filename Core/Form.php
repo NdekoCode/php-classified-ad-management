@@ -157,31 +157,33 @@ class Form
     }
     public function getLoginForm(): string
     {
-        $this->beginForm("/user/login", "POST", ['class' => "p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center space-y-3"])
+        $this->beginForm("/user/login", "POST", ['class' => "form-shadow"])
             ->beginContainer([
                 'class' => "py-8"
             ])
             ->formTitle("Annonces Login", 'h2', ["class" => "font-medium my-3 text-3xl"])
             ->endContainer()
             ->beginContainer([
-                'class' => "mb-3"
+                'class' => "mb-3 w-full"
             ])
             // Input Email
             ->addInput([
                 "placeholder" => "E-Mail or Phone number",
                 'type' => 'email',
-                'class' => "p-3 border-[1px] outline-none border-slate-500 rounded-sm w-80"
+                'class' => "input-field",
+                'name' => 'email'
             ])
             ->endContainer()
             ->beginContainer([
                 'class' => "flex flex-col space-y-1",
             ])->addInput([
                 'type' => "password",
-                'class' => "p-3 border-[1px]  outline-none border-slate-500 rounded-sm w-80",
+                'class' => "input-field",
                 "placeholder" => "Password",
+                "name" => 'password'
             ])
             ->addElement('Forgot password?', 'a', [
-                'class' => "font-bold hover:underline text-[#0070ba] text-sm",
+                'class' => "bold-link",
                 "href" => "#"
             ])
             ->endContainer()
@@ -190,7 +192,7 @@ class Form
             ])
             // Button
             ->addButton('Login', [
-                'class' => "w-full bg-[#0070ba] rounded-3xl p-3 text-white font-bold transition duration-200 hover:bg-[#003087]",
+                'class' => "btn-form",
             ])
             ->beginContainer([
                 'class' => "flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative"
@@ -199,10 +201,92 @@ class Form
             ->endContainer()
             ->addElement("Register", 'a', [
                 'href' => "/users/register",
-                "class" => "w-full border-blue-900 hover:border-[#003087] hover:border-[2px] border-[1px] rounded-3xl p-3 text-[#0070ba] font-bold transition duration-200 text-center"
+                "class" => "btn-form-outline"
             ])
             ->endContainer()
             ->endForm();
         return $this->create();
+    }
+    public function getRegisterForm(): string
+    {
+        return $this->beginForm("/user/login", "POST", ['class' => "p-10 border-[1px] -mt-10 border-slate-200 rounded-md flex flex-col items-center "])
+            ->beginContainer([
+                'class' => "py-8"
+            ])
+            ->formTitle("Annonces Register", 'h2', ["class" => "font-medium my-3 text-3xl"])
+            ->endContainer()
+            // Input FistName
+            ->beginContainer([
+                'class' => "lg:flex lg:items-center lg:gap-x-3 w-full lg:max-w-[320px]",
+            ])
+            ->beginContainer([
+                'class' => "mb-3 basis-1/2",
+            ])->addInput([
+                'class' => "input-field",
+                "placeholder" => "Your firstName",
+                "name" => "firstName",
+            ])
+            ->endContainer()
+            ->beginContainer([
+                'class' => "mb-3  basis-1/2",
+            ])->addInput([
+                'class' => "input-field",
+                "placeholder" => "Your lastName",
+                "name" => "lastName",
+            ])
+            ->endContainer()
+            ->endContainer()
+
+            ->beginContainer([
+                'class' => "mb-3 w-full"
+            ])
+            // Input Email
+            ->addInput([
+                "placeholder" => "E-Mail or Phone number",
+                'type' => 'email',
+                'name' => 'email',
+                'class' => "input-field"
+            ])
+            ->endContainer()
+            ->beginContainer([
+                'class' => "mb-3 w-full"
+            ])
+            // Input Email
+            ->addInput([
+                "placeholder" => "Password",
+                'type' => 'password',
+                'name' => 'password',
+                'class' => "input-field"
+            ])
+            ->endContainer()
+            ->beginContainer([
+                'class' => "mb-3 w-full"
+            ])
+            // Input Email
+            ->addInput([
+                "placeholder" => "Confirm Password",
+                'type' => 'password',
+                'name' => 'confpassword',
+                'class' => "input-field"
+            ])
+            ->endContainer()
+            ->beginContainer([
+                'class' => "flex flex-col w-full space-y-5",
+            ])
+            // Button
+            ->addButton('Register', [
+                'class' => "btn-form ",
+            ])
+            ->beginContainer([
+                'class' => "flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative"
+            ])
+            ->addElement("Or", 'div', ['class' => "absolute px-5 -mt-1 bg-white font-bod"])
+            ->endContainer()
+            ->addElement("Login", 'a', [
+                'href' => "/users/register",
+                "class" => "btn-form-outline"
+            ])
+            ->endContainer()
+            ->endForm()->create();
     }
 }
