@@ -13,7 +13,7 @@ class Form
      */
     protected string $formCode = '';
     protected $validator;
-
+    protected $errors = [];
     public function __construct()
     {
         $this->validator = new Validator();
@@ -41,15 +41,30 @@ class Form
         foreach ($fields as $field) {
             // On verifie si le champs est absent ou vide dans le formulaire
             if ($this->validator->notExist($form[$field])) {
+                $this->errors[$field] = ucfirst($field) . " is required";
                 // On sort en retournant false
                 return false;
-            } elseif ($field === 'email') {
-                if (!$this->validator->isValidEmail($form[$field])) {
+            }
+        }
+        return true;
+    }
+    public function validateFormLogin(array $formData)
+    {
+        foreach ($formData as $field => $value) {
+
+            if ($field === 'email' && !$this->validator->isValidEmail($value)) {
+                $this->errors[$field] = ucfirst($field) . " is incorrect";
+                return false;
+            } elseif ($field === "password") {
+                // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+
+                $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+                if (!preg_match($regex, $value)) {
+                    $this->errors[$field] = ucfirst($field) . " must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
                     return false;
                 }
             }
         }
-        return true;
     }
     /**
      * Add attribute to the HTML field
