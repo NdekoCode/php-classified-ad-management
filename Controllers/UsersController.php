@@ -13,6 +13,7 @@ class UsersController extends MainController
     }
     public function register()
     {
+        $this->redirectConnectedUser();
         $data = $_SESSION['formData'] ?? [];
         $form = new Form();
         // 7288*#Arick
@@ -40,7 +41,7 @@ class UsersController extends MainController
     }
     public function login()
     {
-
+        $this->redirectConnectedUser();
         $data = $_SESSION['formData'] ?? [];
         $form = new Form();
         if (!empty($_POST)) {
@@ -59,6 +60,7 @@ class UsersController extends MainController
                     if ($verify) {
 
                         $_SESSION['user'] = [
+                            'id' => $user->getId(),
                             'firstName' => $user->getFirstName(),
                             'lastName' => $user->getLastName(),
                             'email' => $user->getEmail(),
@@ -82,5 +84,18 @@ class UsersController extends MainController
         $form = $form->getLoginForm($data);
         $title = "Login";
         $this->render('users.auth', compact('form', 'title'));
+    }
+    public function  profile()
+    {
+        $this->forceConnexion();
+
+        $title = "Profile {$_SESSION['user']['firstName']} {$_SESSION['user']['lastName']}";
+        $userModel = new UsersModel();
+        $user = $userModel->find($_SESSION['user']['id']);
+        if ($this->isValidUser($user)) {
+            $this->render('main.profile', compact('title', 'user'));
+        } else {
+            $this->redirect('/users/login');
+        }
     }
 }

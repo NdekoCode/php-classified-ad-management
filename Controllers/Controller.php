@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UsersModel;
+
 abstract class Controller
 {
     /**
@@ -41,5 +43,26 @@ abstract class Controller
     {
         header("Location: $url", response_code: $httpCode);
         exit();
+    }
+    public function isValidUser(UsersModel $user): bool
+    {
+        return $user->getId() === $_SESSION['user']['id'] && $user->getEmail() === $_SESSION['user']['email'];
+    }
+    public function isConnect()
+    {
+        return isset($_SESSION['user']) && !empty($_SESSION['user']);
+    }
+    public function forceConnexion()
+    {
+        if (!$this->isConnect()) {
+            $this->redirect('/users/login', 301);
+        }
+    }
+    public function redirectConnectedUser()
+    {
+        if ($this->isConnect()) {
+
+            $this->redirect('/users/profile');
+        }
     }
 }
