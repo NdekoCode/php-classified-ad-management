@@ -93,6 +93,7 @@ class UsersController extends MainController
     {
         unset($_SESSION['user']);
         session_destroy();
-        $this->redirect('/users/login');
+        // On revient sur la page que l'on etait
+        $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }
